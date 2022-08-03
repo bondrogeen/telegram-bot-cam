@@ -1,0 +1,5 @@
+node_modules/
+log.txt
+.env
+files/foto/*
+files/video/*
