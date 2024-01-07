@@ -3,12 +3,8 @@
 		[
 			"@babel/preset-env",
 			{
-				"targets": {
-					"browsers": ["last 2 versions"]
-				},
-				"debug": true
+				"targets": { "node": "14" }
 			}
 		]
-	],
-	"plugins": ["@babel/transform-runtime"]
+	]
 }

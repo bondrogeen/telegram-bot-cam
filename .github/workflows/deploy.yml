@@ -23,9 +23,7 @@ jobs:
         with:
           name: dist
           path: |
-            build
-            files
-            ecosystem.config.js
+            ./
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -51,4 +49,4 @@ jobs:
         run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PATH }}
 
       - name: Restart PM2
-        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls && cd ${{ secrets.SSH_PATH }} && ls && pm2 start"
+        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.SSH_PATH }} && npm i && pm2 start"
