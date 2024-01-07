@@ -3,3 +3,5 @@ log.txt
 .env
 files/foto/*
 files/video/*
+build
+store.json

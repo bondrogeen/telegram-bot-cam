@@ -3,14 +3,6 @@ import menus from './telegram/menus';
 
 import ftp from './ftp';
 
-// bot.on('text', (ctx) => ctx.reply('Hello World'))
-
-// bot.start((ctx) => ctx.reply('Welcome'))
-bot.help((ctx) => ctx.reply('Send me a sticker'));
-bot.on('sticker', (ctx) => ctx.reply('👍'));
-bot.hears('hi', (ctx) => ctx.reply('Hey there'));
-
-
 bot.on('callback_query:data', async (ctx, next) => {
 	console.log(
 		'another callbackQuery happened',

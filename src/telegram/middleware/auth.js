@@ -1,14 +1,12 @@
-import { users } from '../config';
+import users from '../../db/index';
 
 const getId = (ctx) => {
-	// console.log(ctx)
-	// console.log(idCallback)
 	const id = ctx?.update?.message?.from?.id;
 	const idCallback = ctx?.update?.callback_query?.from?.id;
 	return id || idCallback;
 };
 
 export default {
-	isAdmin: (ctx) => Boolean(users.find((i) => i === getId(ctx))),
-	isUser: (ctx) => Boolean(users.find((i) => i === getId(ctx))),
+	isAdmin: (ctx) => users.find(getId(ctx)),
+	isUser: (ctx) => users.find(getId(ctx)),
 };
