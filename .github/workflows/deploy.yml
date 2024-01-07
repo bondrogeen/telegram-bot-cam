@@ -26,6 +26,8 @@ jobs:
             files
             build
             !node_modules
+            !.github
+            !.git
             ./*.*
   deploy:
     needs: build
