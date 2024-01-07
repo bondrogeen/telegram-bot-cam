@@ -1,5 +1,5 @@
 import { MenuTemplate, createBackMainMenuButtons } from 'telegraf-inline-menu';
-import { list } from '#locales';
+import { list } from '../../locales/';
 
 const settings = new MenuTemplate((ctx) => ctx.$t('menu.settings'));
 

@@ -1,7 +1,7 @@
 import { replyMenuToContext, MenuTemplate, createBackMainMenuButtons } from 'telegraf-inline-menu';
 import bot from '../../telegram';
 
-import { list } from '#locales';
+import { list } from '../../../locales/';
 
 import { StatelessQuestion } from '@grammyjs/stateless-question';
 
@@ -107,7 +107,7 @@ adminUsers.interact((ctx) => ctx.$t('menu.addUser'), 'add_user', {
 	do: async (ctx) => {
 		ctx.store.add('users', {});
 		ctx.store.save('users');
-		ctx.deleteMessage()
+		ctx.deleteMessage();
 		replyMenuToContext(adminUsers, ctx, `/admin/users/`);
 		return false;
 	},

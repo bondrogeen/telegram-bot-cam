@@ -1,7 +1,7 @@
 import { telegram } from '../config/';
 import { Telegraf } from 'telegraf';
 import store from '../db/index';
-import { $t } from '#locales';
+import { $t } from '../locales/';
 
 const bot = new Telegraf(telegram.token);
 

@@ -8,9 +8,6 @@
 		"dev": "nodemon src/app.js --exec babel-node",
 		"start": "node build/app.js"
 	},
-	"imports": {
-		"#locales": "./src/locales/index.js"
-	},
 	"nodemonConfig": {
 		"ignore": [
 			"/files/**"
@@ -32,6 +29,7 @@
 		"@babel/cli": "^7.17.10",
 		"@babel/core": "^7.17.10",
 		"@babel/node": "^7.17.10",
+		"@babel/plugin-transform-runtime": "^7.23.7",
 		"@babel/preset-env": "^7.17.10",
 		"eslint": "^8.15.0",
 		"nodemon": "^2.0.16"
