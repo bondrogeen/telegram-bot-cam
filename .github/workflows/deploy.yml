@@ -1,4 +1,4 @@
-name: Build and deploy home
+name: Build and deploy bot
 on:
   workflow_dispatch:
   push:
@@ -23,7 +23,7 @@ jobs:
         with:
           name: dist
           path: |
-            .build
+            build
             files
             ecosystem.config.js
   deploy:
