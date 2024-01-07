@@ -23,7 +23,10 @@ jobs:
         with:
           name: dist
           path: |
-            ./
+            files
+            build
+            !node_modules
+            ./*.*
   deploy:
     needs: build
     runs-on: ubuntu-latest
