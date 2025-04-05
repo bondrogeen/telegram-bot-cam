@@ -1,8 +1,112 @@
-import JSONdb from 'simple-json-db';
-import { admin } from '../config/index';
-import { User, Camera } from '../class/index';
+import { uid } from '../utils/main';
 
-const db = new JSONdb('./files/store.json');
+class Base {
+	#id;
+	#name;
+
+	constructor(data) {
+		this.#id = data?.id || uid();
+		this.#name = data?.name || 'New';
+	}
+
+	get id() {
+		return this.#id;
+	}
+	get name() {
+		return this.#name;
+	}
+
+	setId(id) {
+		this.#id = id;
+	}
+	setName(name) {
+		this.#name = name || '';
+	}
+	toObject() {
+		return {
+			id: this.#id,
+			name: this.#name,
+		};
+	}
+}
+
+export class Camera extends Base {
+	#ip;
+	#path;
+	constructor(data) {
+		super(data);
+		this.#ip = data?.ip || '0.0.0.0';
+		this.#path = data?.path || '';
+	}
+
+	get ip() {
+		return this.#ip;
+	}
+	get path() {
+		return this.#path;
+	}
+
+	setIp(ip) {
+		this.#ip = ip;
+	}
+	setPath(path) {
+		this.#path = path;
+	}
+
+	toObject() {
+		return {
+			...super.toObject(),
+			ip: this.#ip,
+		};
+	}
+}
+
+export class User extends Base {
+	#role;
+	#locale;
+	#notification;
+	constructor(data) {
+		super(data);
+		this.#role = data?.role || 'unauthorized';
+		this.#locale = data?.locale || 'en';
+		this.#notification = data?.notification || 'on';
+	}
+
+	get role() {
+		return this.#role;
+	}
+	get locale() {
+		return this.#locale;
+	}
+	get notification() {
+		return this.#notification;
+	}
+	isAccess() {
+		return ['admin', 'user'].includes(this.#role);
+	}
+	isAdmin() {
+		return ['admin'].includes(this.#role);
+	}
+	setRole(role) {
+		this.#role = role || 'unauthorized';
+	}
+	setLocale(locale) {
+		this.#locale = locale || 'en';
+	}
+	setNotification(value) {
+		this.#notification = value || 'on';
+	}
+	toObject() {
+		return {
+			...super.toObject(),
+			role: this.#role,
+			locale: this.#locale,
+			notification: this.#notification,
+		};
+	}
+}
+
+
 
 const getId = (ctx) => ctx?.update?.message?.from?.id || ctx?.update?.callback_query?.from?.id;
 
@@ -13,11 +117,13 @@ const getClass = (key, data) => {
 };
 
 class Store {
+	db;
 	users;
 	cameras;
-	constructor({ users = [], cameras = [] }) {
-		this.users = users.map((user) => new User(user));
-		this.cameras = cameras.map((user) => new Camera(user));
+	constructor(db, { users = [], cameras = [] }) {
+		this.db = db;
+		this.users = (db.get('users') || users).map((user) => new User(user));
+		this.cameras = (db.get('cameras') || cameras).map((user) => new Camera(user));
 	}
 
 	add(key, data) {
@@ -48,18 +154,13 @@ class Store {
 	save(key) {
 		if (key === 'users' || key === 'all') {
 			const users = this.users.map((user) => user.toObject());
-			db.set('users', users);
+			this.db.set('users', users);
 		}
 		if (key === 'cameras' || key === 'all') {
 			const cameras = this.cameras.map((cam) => cam.toObject());
-			db.set('cameras', cameras);
+			this.db.set('cameras', cameras);
 		}
 	}
 }
 
-const store = {
-	users: db.get('users') || [admin],
-	cameras: db.get('cameras') || [],
-};
-
-export default new Store(store);
+export default Store;
