@@ -11,12 +11,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Cache modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: node-modules-${{ hashFiles('**/package-lock.json') }}
+      # - uses: actions/checkout@v4
+      # - name: Cache modules
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.npm
+      #     key: node-modules-${{ hashFiles('**/package-lock.json') }}
       # - uses: actions/setup-node@v3
       #   with:
       #     node-version: 18
@@ -30,7 +30,7 @@ jobs:
             files
             build
             !node_modules
-            ./*.*
+            *.*
   deploy:
     needs: build
     runs-on: ubuntu-latest
