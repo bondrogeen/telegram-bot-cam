@@ -29,8 +29,7 @@ jobs:
             src
             files
             build
-            !node_modules
-            *.*
+            *
   deploy:
     needs: build
     runs-on: ubuntu-latest
