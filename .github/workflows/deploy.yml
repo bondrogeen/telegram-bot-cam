@@ -6,7 +6,7 @@ on:
       - 'master'
 env:
   env_var: ${{ vars.ENV_CONTEXT_VAR }}
-  PATH: /home/brg/${{ github.REPOSITORY }}
+  SERVER_PATH: /home/brg/${{ github.REPOSITORY }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -52,7 +52,7 @@ jobs:
         run: echo "$env_var"
 
       - name: echo
-        run: echo ${{ env.PATH }}
+        run: echo ${{ env.SERVER_PATH }}
 
       - name: Remove
         run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} rm -rf /home/${{ secrets.SSH_USER }}/www/${{ github.REPOSITORY }}
