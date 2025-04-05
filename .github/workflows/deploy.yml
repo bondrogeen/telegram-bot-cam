@@ -29,6 +29,8 @@ jobs:
             files
             build
             src
+            .babelrc
+            .env
             !node_modules
             ./*.*
   deploy:
