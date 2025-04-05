@@ -45,24 +45,19 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           known_hosts: unnecessary
 
-      - name: Use variables
-        run: |
-          echo "repository variable : $REPOSITORY_VAR"
-          echo "organization variable : $ORGANIZATION_VAR"
-          echo "overridden variable : $OVERRIDE_VAR"
-          echo "variable from shell environment : $env_var"
-
       - name: Adding Known Hosts
         run: ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts && ls
       
-      # - name: Remove
-      #   run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} rm -rf /home/brg/www/test/
+      - name: echo
+        run: echo ${{ github.ref }}
 
-      - name: LS
-        run: ls
+      - name: echo
+        run: echo ${{ github }}
+      - name: echo
+        run: echo ${{ github.REPOSITORY }}
 
       - name: Remove
-        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} ls
+        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} rm -rf /home/brg/www/test/
 
       - name: Deploy with rsync
         run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/brg/www/
