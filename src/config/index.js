@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
+import path from 'path';
+
 const { config } = dotenv;
-config();
+config({ path: path.join(__dirname, '.env') });
 
 export const camera = {
 	user: process.env.CAM_USER || 'admin',
