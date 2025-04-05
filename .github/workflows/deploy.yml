@@ -54,8 +54,8 @@ jobs:
       - name: Create
         run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} mkdir -p ${{ env.SERVER_PATH }}
 
-      - name: Remove
-        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} rm -rf ${{ env.SERVER_PATH }}
+      # - name: Remove
+      #   run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} rm -rf ${{ env.SERVER_PATH }}
 
       - name: Deploy with rsync
         run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ env.SERVER_PATH }}
