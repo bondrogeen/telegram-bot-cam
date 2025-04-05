@@ -11,25 +11,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@v4
-      # - name: Cache modules
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.npm
-      #     key: node-modules-${{ hashFiles('**/package-lock.json') }}
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 18
-      # - run: npm install && npm run build 
+      - uses: actions/checkout@v4
+      - name: Cache modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install && npm run build 
 
       - uses: actions/upload-artifact@v4
         with:
           name: dist
           path: |
-            src
             files
             build
-            *
+            src
+            !node_modules
+            ./*.*
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -51,8 +52,8 @@ jobs:
       - name: Create
         run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} mkdir -p ${{ env.SERVER_PATH }}
 
-      - name: Remove
-        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} rm -rf ${{ env.SERVER_PATH }}
+      # - name: Remove
+      #   run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} rm -rf ${{ env.SERVER_PATH }}/build/
 
       - name: Deploy with rsync
         run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ env.SERVER_PATH }}
