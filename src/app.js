@@ -72,6 +72,7 @@ async function start() {
 		await ftp.listen();
 		await bot.launch();
 
+		console.log(22222);
 		console.log(11111);
 
 	} catch (error) {
