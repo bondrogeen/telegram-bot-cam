@@ -55,8 +55,11 @@ jobs:
       - name: Adding Known Hosts
         run: ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts && ls
       
+      # - name: Remove
+      #   run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} rm -rf /home/brg/www/test/
+
       - name: Remove
-        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} rm -rf /home/brg/www/
+        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} ls
 
       - name: Deploy with rsync
         run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/brg/www/
