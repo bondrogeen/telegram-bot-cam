@@ -5,6 +5,8 @@ import { $t } from '../locales/';
 
 const bot = new Telegraf(telegram.token);
 
+console.log(telegram)
+
 const visitorsIds = {};
 
 bot.use(async (ctx, next) => {
