@@ -5,7 +5,7 @@ module.exports = {
       // port: 3001,
       exec_mode: "cluster",
       instances: 1,
-      script: "npm run start",
+      script: "./build/app.js",
       args: "",
     },
   ],
