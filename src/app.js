@@ -69,11 +69,8 @@ bot.catch((error) => {
 
 async function start() {
 	try {
-		// await ftp.listen();
+		await ftp.listen();
 		await bot.launch();
-
-		console.log(11111);
-
 	} catch (error) {
 		console.log(error);
 	}

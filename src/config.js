@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 const { config } = dotenv;
-config({ path: path.join(__dirname, '.env') });
+config({ path: path.join(__dirname, '../.env') });
 
 console.log(path.join(__dirname, '.env'));
 console.log(process.env.TELEGRAM_TOKEN);
