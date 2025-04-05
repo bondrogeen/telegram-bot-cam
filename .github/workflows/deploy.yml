@@ -49,6 +49,9 @@ jobs:
         run: ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts && ls
 
       - name: Create
+        run: echo ${{ github.SERVER_PATH }}
+
+      - name: Create
         run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} mkdir -p ${{ github.SERVER_PATH }}
 
       - name: Remove
