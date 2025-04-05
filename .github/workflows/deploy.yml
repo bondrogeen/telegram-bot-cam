@@ -6,7 +6,7 @@ on:
       - 'master'
 env:
   env_var: ${{ vars.ENV_CONTEXT_VAR }}
-  SERVER_PATH: /home/brg/${{ github.REPOSITORY }}
+  SERVER_PATH: /home/${{ secrets.SSH_USER }}/app/${{ github.REPOSITORY }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -47,18 +47,15 @@ jobs:
 
       - name: Adding Known Hosts
         run: ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts && ls
-      
-      - name: echo
-        run: echo "$env_var"
 
-      - name: echo
-        run: echo ${{ env.SERVER_PATH }}
+      - name: Create
+        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} mkdir -p ${{ github.SERVER_PATH }}
 
       - name: Remove
-        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} rm -rf /home/${{ secrets.SSH_USER }}/www/${{ github.REPOSITORY }}
+        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} rm -rf ${{ github.SERVER_PATH }}
 
       - name: Deploy with rsync
-        run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/www/${{ github.REPOSITORY }}
+        run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ github.SERVER_PATH }}
 
       - name: Restart PM2
-        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /home/${{ secrets.SSH_USER }}/www/${{ github.REPOSITORY }} && npm i && pm2 start"
+        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ github.SERVER_PATH }} && npm i && pm2 start"
