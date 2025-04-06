@@ -29,12 +29,15 @@ jobs:
           include-hidden-files: true
           path: |
             files
+            db
+            ftp
+            locales
+            utils
+            telegram
             *.*
-            .env
             !.git
             !.github
             !node_modules
-            ~/**/*.*
   deploy:
     needs: build
     runs-on: ubuntu-latest
