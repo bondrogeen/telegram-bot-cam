@@ -5,7 +5,7 @@ module.exports = {
       // port: 3001,
       exec_mode: "cluster",
       instances: 1,
-      script: "node ./build/app.js",
+      script: "./build/app.js",
       args: "",
       node_args : '-r dotenv/config',
     },
