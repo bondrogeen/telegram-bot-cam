@@ -5,8 +5,8 @@
 	"main": "app.js",
 	"type": "module",
 	"scripts": {
-		"dev": "nodemon app.js",
-		"start": "node app.js",
+		"dev": "nodemon app.mjs",
+		"start": "node app.mjs",
 		"build": "ls"
 	},
 	"nodemonConfig": {
