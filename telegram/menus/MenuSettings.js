@@ -1,5 +1,5 @@
 import { MenuTemplate, createBackMainMenuButtons } from 'telegraf-inline-menu';
-import { list } from '../../locales/';
+import { list } from '../../locales/index.js';
 
 const settings = new MenuTemplate((ctx) => ctx.$t('menu.settings'));
 
@@ -7,6 +7,8 @@ const settingsLanguage = new MenuTemplate((ctx) => ctx.$t('menu.language'));
 
 settingsLanguage.select('select', list, {
 	set: async (ctx, key, r) => {
+		console.log(key);
+		
 		ctx.user.setLocale(key || 'en');
 		ctx.store.save('users');
 		await ctx.answerCbQuery(`You selected ${list[key]}`);

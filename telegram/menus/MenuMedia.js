@@ -1,6 +1,6 @@
 import { MenuTemplate, createBackMainMenuButtons } from 'telegraf-inline-menu';
 
-import req from '../controllers/ControllerFtp';
+import req from '../controllers/ControllerFtp.js';
 
 const getListCameras = (acc, i) => {
 	acc[i.id] = `${i.name}`;

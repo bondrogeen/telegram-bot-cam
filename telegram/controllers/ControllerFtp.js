@@ -1,5 +1,5 @@
 import request from 'request';
-import { camera } from '../../config';
+import { camera } from '../../config.js';
 
 export default {
 	sendImage: (host) => {

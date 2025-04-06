@@ -1,8 +1,8 @@
-const path = require('path');
+import path from 'path'
 
 import FtpSrv from 'ftp-srv'
 
-import { ftp } from '../config'
+import { ftp } from '../config.js'
 
 const ftpServer = new FtpSrv({ url: `ftp://${ftp.ip}:${ftp.port}` })
 

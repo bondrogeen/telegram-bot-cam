@@ -3,10 +3,10 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "app.js",
+	"type": "module",
 	"scripts": {
-		"build": "babel src --out-dir build",
-		"dev": "nodemon src/app.js --exec babel-node",
-		"start": "node build/app.js"
+		"dev": "nodemon app.js",
+		"start": "node app.js"
 	},
 	"nodemonConfig": {
 		"ignore": [
@@ -25,10 +25,6 @@
 		"telegraf-inline-menu": "^6.3.0"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.23.4",
-		"@babel/core": "^7.23.7",
-		"@babel/node": "^7.22.19",
-		"@babel/preset-env": "^7.23.7",
 		"eslint": "^8.15.0",
 		"nodemon": "^2.0.16",
 		"prettier": "^2.6.2"

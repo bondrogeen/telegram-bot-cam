@@ -1,4 +1,4 @@
-import { uid } from '../utils/main';
+import { uid } from '../utils/main.js';
 
 class Base {
 	#id;
