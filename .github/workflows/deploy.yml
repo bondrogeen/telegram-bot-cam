@@ -66,4 +66,4 @@ jobs:
         run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ env.SERVER_PATH }}
 
       - name: Restart PM2
-        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ env.SERVER_PATH }} && npm i && pm2 stop ${{ env.REPOSITORY_NAME }} && pm2 delete ${{ env.REPOSITORY_NAME }} && pm2 start ${{ env.REPOSITORY_NAME }}"
+        run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ env.SERVER_PATH }} && npm i && pm2 stop ${{ env.REPOSITORY_NAME }} && pm2 delete ${{ env.REPOSITORY_NAME }} && pm2 start"
