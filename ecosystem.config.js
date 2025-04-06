@@ -7,7 +7,7 @@ module.exports = {
       instances: 1,
       script: "node ./build/app.js",
       args: "",
-      // node_args : '-r dotenv/config',
+      node_args : '-r dotenv/config',
     },
   ],
 };
