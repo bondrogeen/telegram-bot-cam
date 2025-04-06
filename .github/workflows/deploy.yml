@@ -21,7 +21,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm install && npm run build 
+      - run: npm run build 
 
       - uses: actions/upload-artifact@v4
         with:
@@ -29,12 +29,12 @@ jobs:
           include-hidden-files: true
           path: |
             files
-            build
-            src
-            .babelrc
+            *.*
             .env
+            !.git
+            !.github
             !node_modules
-            ./*.*
+            ~/**/*.*
   deploy:
     needs: build
     runs-on: ubuntu-latest
